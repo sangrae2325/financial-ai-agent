@@ -9,16 +9,20 @@ from pathlib import Path
 from typing import Any
 import json
 
-def save_json(data: dict[str, Any], file_path: str) -> None:
+
+def save_json(data: dict[str, Any], category: str) -> str:
     """
-    JSON 데이터를 지정한 경로에 저장한다.
-    
+    JSON 데이터를 로컬에 저장한다.
+
     Args:
         data: 저장할 JSON 데이터
-        file_path: 저장 경로
+        category: 데이터 종류 (exchange, news, stocks ...)
+
+    Returns:
+        저장된 파일 경로
     """
 
-    path = Path(file_path)
+    path = Path(f"data/{category}/{category}.json")
 
     # 폴더 없으면 자동 생성
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -30,4 +34,7 @@ def save_json(data: dict[str, Any], file_path: str) -> None:
             ensure_ascii=False,
             indent=4,
         )
+
     print(f"Local Save Success : {path}")
+
+    return str(path)

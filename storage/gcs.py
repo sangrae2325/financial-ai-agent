@@ -5,10 +5,11 @@ Google Cloud Storage 업로드 모듈
 - 로컬 JSON 파일 업로드
 """
 from pathlib import Path
+from datetime import datetime
 from google.cloud import storage
 from app.config import PROJECT_ID, BUCKET_NAME
 
-def upload_json(file_path: str) -> str:
+def upload_json(file_path: str, category: str) -> str:
     """
     로컬 JSON 파일을 GCS에 업로드한다.
 
@@ -23,10 +24,11 @@ def upload_json(file_path: str) -> str:
 
     if not path.exists():
         raise FileNotFoundError(f"{path} 파일이 존재하지 않습니다.")
-
+    
+    today = datetime.now().strftime("%Y-%m-%d")
     client = storage.Client(project=PROJECT_ID)
     bucket = client.bucket(BUCKET_NAME)
-    object_name = f"exchange/{path.name}"
+    object_name = f"{category}/{today}/{path.name}"
     blob = bucket.blob(object_name)
     blob.upload_from_filename(str(path))
     gcs_uri = f"gs://{BUCKET_NAME}/{object_name}"

@@ -6,19 +6,23 @@ from storage.local import save_json
 
 data = fetch_exchange_rate()
 
-save_json(
+validate_exchange_payload(data)
+
+file_path = save_json(
     data,
-    "data/exchange.json",
+    "exchange",
 )
 
 gcs_uri = upload_json(
-
-    "data/exchange.json"
-
+    file_path,
+    "exchange",
 )
 
 print(gcs_uri)
-validate_exchange_payload(data)
 
 print(data["base_code"])
 print(data["rates"]["KRW"])
+
+
+
+
