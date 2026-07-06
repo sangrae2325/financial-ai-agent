@@ -15,6 +15,7 @@ def upload_json(file_path: str, category: str) -> str:
 
     Args:
         file_path: 업로드할 파일 경로
+        category: 데이터 종류 (exchange, news, stocks ...)
 
     Returns:
         업로드된 GCS URI

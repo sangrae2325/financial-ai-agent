@@ -1,3 +1,4 @@
+from storage.bigquery import upload_exchange
 from storage.gcs import upload_json
 from collectors.exchange_rate import fetch_exchange_rate
 from validation.data_quality import validate_exchange_payload
@@ -16,6 +17,12 @@ file_path = save_json(
 gcs_uri = upload_json(
     file_path,
     "exchange",
+)
+
+
+upload_exchange(
+    file_path,
+    gcs_uri,
 )
 
 print(gcs_uri)
