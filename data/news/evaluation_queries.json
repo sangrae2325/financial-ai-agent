@@ -1,0 +1,66 @@
+[
+  {
+    "id": "q01_sk_hynix_adr",
+    "query": "SK하이닉스 ADR 상장이 기업가치와 주가 재평가에 어떤 영향을 줄 수 있어?",
+    "filters": {},
+    "expected_terms": ["SK하이닉스", "ADR"],
+    "top_k": 3,
+    "purpose": "기업의 해외 ADR 상장과 기업가치 재평가라는 복합 금융 주제 검색 품질을 확인한다."
+  },
+  {
+    "id": "q02_adr_arbitrage",
+    "query": "SK하이닉스 한국 보통주와 미국 ADR 사이의 차익거래가 어려운 이유는?",
+    "filters": {},
+    "expected_terms": ["ADR", "차익거래"],
+    "top_k": 3,
+    "purpose": "기사의 세부 구조와 투자 유의사항을 긴 문맥에서 찾는지 확인한다."
+  },
+  {
+    "id": "q03_leveraged_etf",
+    "query": "미국 시장의 SK하이닉스 2배 레버리지 ETF 투자 유의사항은 무엇이야?",
+    "filters": {},
+    "expected_terms": ["레버리지", "SK하이닉스"],
+    "top_k": 3,
+    "purpose": "상품명과 위험 특성이 함께 있는 레버리지 ETF 관련 청크를 검색하는지 확인한다."
+  },
+  {
+    "id": "q04_japan_semiconductor",
+    "query": "일본 반도체 소재와 장비 기업이 수혜를 받을 수 있는 이유를 알려줘.",
+    "filters": {"press": "서울경제", "published_after": "2026-07-10"},
+    "expected_terms": ["일본", "반도체", "소재"],
+    "top_k": 3,
+    "purpose": "의미 검색과 언론사·발행일 metadata filter를 동시에 검증한다."
+  },
+  {
+    "id": "q05_sidecar_volatility",
+    "query": "코스피 사이드카 발동이 늘어난 배경과 시장 변동성의 관계는?",
+    "filters": {},
+    "expected_terms": ["사이드카", "변동성"],
+    "top_k": 3,
+    "purpose": "시장 제도 용어와 변동성 맥락을 가진 기사를 정확히 반환하는지 확인한다."
+  },
+  {
+    "id": "q06_financial_tax",
+    "query": "금융투자소득세 논의가 국내 증시 변동성을 높일 수 있다는 우려의 배경은?",
+    "filters": {"press": "서울경제", "published_after": "2026-07-10"},
+    "expected_terms": ["과세", "변동성"],
+    "top_k": 3,
+    "purpose": "정책·세제 변화가 시장에 미치는 영향을 다룬 기사의 검색 품질을 확인한다."
+  },
+  {
+    "id": "q07_overseas_stock_buying",
+    "query": "서학개미가 다시 미국 주식 매수에 나선 배경은 무엇이야?",
+    "filters": {},
+    "expected_terms": ["서학개미", "미국"],
+    "top_k": 3,
+    "purpose": "투자자 행동과 해외 주식이라는 일상적 금융 표현의 의미 검색을 확인한다."
+  },
+  {
+    "id": "q08_semiconductor_outlook",
+    "query": "반도체 업황 전망이 엇갈리는 이유와 투자 판단 시 고려할 점은?",
+    "filters": {"press": "서울경제"},
+    "expected_terms": ["반도체", "전망"],
+    "top_k": 3,
+    "purpose": "넓고 다소 모호한 질문에서 언론사 조건을 만족하면서 관련 기사를 반환하는지 확인한다."
+  }
+]

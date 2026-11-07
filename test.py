@@ -1,35 +1,8 @@
-from storage.bigquery import upload_exchange
-from storage.gcs import upload_json
-from collectors.exchange_rate import fetch_exchange_rate
-from validation.data_quality import validate_exchange_payload
-from storage.local import save_json
+from collectors.news import fetch_news_list
 
+news = fetch_news_list()
 
-data = fetch_exchange_rate()
+print(len(news))
 
-validate_exchange_payload(data)
-
-file_path = save_json(
-    data,
-    "exchange",
-)
-
-gcs_uri = upload_json(
-    file_path,
-    "exchange",
-)
-
-
-upload_exchange(
-    file_path,
-    gcs_uri,
-)
-
-print(gcs_uri)
-
-print(data["base_code"])
-print(data["rates"]["KRW"])
-
-
-
-
+for article in news[:5]:
+    print(article)

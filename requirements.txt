@@ -1,3 +1,10 @@
 requests
+beautifulsoup4
+lxml
 google-cloud-storage
 google-cloud-bigquery
+sentence-transformers
+chromadb
+google-genai
+streamlit
+python-dotenv

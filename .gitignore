@@ -232,3 +232,11 @@ data/embeddings/*
 !data/processed/.gitkeep
 
 !data/embeddings/.gitkeep
+
+# Local vector DB and scraped article data (regenerate with pipelines)
+data/chroma/
+data/news/raw/
+data/news/news.json
+data/news/chunks.json
+data/news/embeddings.json
+data/stocks/raw/

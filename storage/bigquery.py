@@ -10,6 +10,7 @@ from app.config import (
     PROJECT_ID,
     DATASET,
     EXCHANGE_TABLE,
+    NEWS_TABLE,
 )
 
 client = bigquery.Client(project=PROJECT_ID)
@@ -89,6 +90,58 @@ def upload_exchange(
         table_id,
     )
 
+    job.result()
+
+    print(f"BigQuery Upload Success : {len(rows)} rows")
+
+
+def ensure_news_table() -> str:
+    """financial_news 테이블이 없으면 생성한다."""
+    table_id = f"{PROJECT_ID}.{DATASET}.{NEWS_TABLE}"
+
+    schema = [
+        bigquery.SchemaField("title", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("content", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("press", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("published_at", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("url", "STRING", mode="REQUIRED"),
+        bigquery.SchemaField("fetched_at", "TIMESTAMP", mode="REQUIRED"),
+        bigquery.SchemaField("ingested_at", "TIMESTAMP", mode="REQUIRED"),
+        bigquery.SchemaField("gcs_uri", "STRING", mode="REQUIRED"),
+    ]
+
+    table = bigquery.Table(table_id, schema=schema)
+    client.create_table(table, exists_ok=True)
+
+    print(f"News Table Ready : {table_id}")
+    return table_id
+
+
+def upload_news(file_path: str, gcs_uri: str) -> None:
+    """뉴스 JSON 파일의 기사 목록을 BigQuery에 적재한다."""
+    with open(file_path, "r", encoding="utf-8") as file:
+        articles = json.load(file)
+
+    if not isinstance(articles, list):
+        raise ValueError("뉴스 JSON은 기사 목록 리스트여야 합니다.")
+
+    table_id = ensure_news_table()
+    now = datetime.now(timezone.utc).isoformat()
+    rows = [
+        {
+            "title": article["title"],
+            "content": article["content"],
+            "press": article["press"],
+            "published_at": article["published_at"],
+            "url": article["url"],
+            "fetched_at": now,
+            "ingested_at": now,
+            "gcs_uri": gcs_uri,
+        }
+        for article in articles
+    ]
+
+    job = client.load_table_from_json(rows, table_id)
     job.result()
 
     print(f"BigQuery Upload Success : {len(rows)} rows")
